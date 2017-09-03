@@ -1,0 +1,143 @@
+---
+title: "Processing and visualising the NOAA Dataset of Significant Earthquakes"
+author: "maianhdang"
+date: "September 3, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Package Info
+
+
+This is `noaa.visualise` package working with the NOAA Significant Earthquakes dataset 
+to support the process of visualising and gaining information. 
+
+The packages includes the below groups:
+
+Group                 | Functions
+----------------------| ----------------------------
+Cleaning the raw data | eq_clean_data(), eq_location_clean(), eq_country_filter()
+Visualisation tools   | geom_timeline(), geom_timeline_lable(), stat_timeline(), theme_timeline()
+Mapping tools         | eq_map(), eq_create_label()
+
+## Included dataset
+
+
+The [NOAA Significant Earhquake Dataset](https://www.ngdc.noaa.gov/nndc/struts/form?t=101650&s=1&d=1) contains the information of 5,933 earthquakes over the period of 4,000 years.
+**Cite:** National Geophysical Data Center / World Data Service (NGDC/WDS): Significant Earthquake Database. National Geophysical Data Center, NOAA. doi:10.7289/V5TD9V7K
+
+It is also included in this package, and could be called by:
+
+```{r data}
+raw_data <- data("raw_data")
+```
+
+Or, if the user have the earthquake data saved in the working directory as `"earthquakes.tsv.gz"`, it could be used in the following way:
+
+`raw_data <- readr::read_delim("earthquakes.tsv.gz", delim = "\t") `
+
+## Visualization Tools
+
+
+#### geom_timeline()
+
+A new geom for `ggplot2` called `geom_timeline()` would plot a timeline of earthquakes, ranging from `xmin` to `xmax` as the beginning and ending date points. 
+
+* `x aesthetic` is a date of earthquakes (`date` variable is created through `eq_clean_data()`.
+* `y aesthetic` is a factor indicating some stratification in which case multiple time lines will be plotted for each level of the factor (e.g. `y = COUNTRY`).
+* Optional aesthetic, `color`, `size`, `alpha` could be set to show additional information (e.g. `DEATHS`, Number of Death in each earthquakes; `EQ_PRIMARY`, Magnitude in Richter Scale)
+
+For example:
+
+```{r visual_1}
+data("raw_data") ## obtain the included dataset
+data <- noaa.visualise::eq_clean_data(raw_data) 
+input_data <- noaa.visualise::eq_country_filter(data, countries = c("MEXICO", "IRAN"),
+                                            xmin = as.Date("1000-01-01"),
+                                            xmax = as.Date("2010-01-01"))
+
+ggplot2::ggplot(input_data, ggplot2::aes (x = date, y = COUNTRY, color = as.numeric(DEATHS), size = as.numeric(EQ_PRIMARY))) + ## continuous scales set as.numeric()
+
+## geom_timeline  
+noaa.visualise::geom_timeline(ggplot2::aes(xmin = as.Date("1900-01-01"), xmax =  as.Date("1925-01-01"))) +
+ggplot2::labs(size = "Richter Scale Values", color = "Number of Deaths" )+
+  
+noaa.visualise::theme_timeline()
+```
+
+#### geom_timeline_label()
+
+The `geom_timeline()` could be used in conjuction with `geom_timeline_label()`, which would add annotations to each data point in the timeline. 
+
+* `label` is the variable in the dataset where it obtains the text annotation.
+* `n_max` is the option to subset the dataset to n_max largest (by magnitude) earthquakes.
+
+For example:
+
+```{r visual_2}
+data("raw_data")
+data <- noaa.visualise::eq_clean_data(raw_data)
+data <- noaa.visualise::eq_location_clean(data) ## to create the text annotation
+input_data <- noaa.visualise::eq_country_filter(data, countries = c("MEXICO", "IRAN"),
+                                            xmin = as.Date("1000-01-01"),
+                                            xmax = as.Date("2010-01-01"))
+
+ggplot2::ggplot(input_data, ggplot2::aes (x = date, y = COUNTRY, color = as.numeric(DEATHS), size = as.numeric(EQ_PRIMARY))) +
+
+## geom_timeline  
+noaa.visualise::geom_timeline(ggplot2::aes(xmin = as.Date("1900-01-01"), xmax =  as.Date("1925-01-01"))) +
+ggplot2::labs(size = "Richter Scale Values", color = "Number of Deaths" )+
+
+## geom_timeline_label  
+noaa.visualise::geom_timeline_label(ggplot2::aes(label = LOCATION_NAME, 
+                          xmin = as.Date("1900-01-01"), xmax = as.Date("1925-01-01")), 
+                          n_max = 5) + 
+  
+noaa.visualise::theme_timeline()
+```
+
+#### stat_timeline() and theme_timeline()
+* `stat_timeline()` are set as the default stat for both `geom_timeline()` and `geom_timeline_label()`.
+* `theme_timeline()` is the new theme to create the better timeline visualisation.
+
+## Mapping Tools
+
+#### eq_map()
+
+In addition to the visualisation by time, the package provides the tools `eq_map()` to visualise the earthquake data points by their geographical location on the map, by `LONGITUDE` and
+`LATITUDE`. The radius of the earthquake points are the Magnitude (`EQ_PRIMARY`).
+
+For each point, the user could choose the information for **pop-up annotation** through the argument `annot_col`.
+
+For example, with `annot_col = "date"`:
+
+```{r map_1}
+data("raw_data")
+data <- noaa.visualise::eq_clean_data(raw_data)
+input_data <- dplyr::filter(data, COUNTRY == "MEXICO" &
+                                          lubridate::year(date) >= 2000)
+## eq_map
+noaa.visualise::eq_map(input_data, annot_col = "date") ## annot_col as "date"
+          
+```
+
+#### eq_create_label()
+
+To provide more interesting information for the pop-up annotaion, the `eq_create_label()` could be used to create the `popup_text` column in the data frame, which includes the information of **Location**, **Total Deaths**, and **Magnitude** of each earthquakes. 
+
+For example, 
+
+```{r map_2}
+library(magrittr)
+data("raw_data")
+data <- noaa.visualise::eq_clean_data(raw_data)
+input_data <- dplyr::filter(data, COUNTRY == "MEXICO" &
+                                          lubridate::year(date) >= 2000)%>%
+  dplyr::mutate(popup_text = noaa.visualise::eq_create_label(.)) ## create popup_text
+
+noaa.visualise::eq_map(input_data, annot_col = "popup_text") ## annot_col set as popup_text
+          
+```
