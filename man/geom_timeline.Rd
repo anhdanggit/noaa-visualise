@@ -28,6 +28,8 @@ plot. You must supply \code{mapping} if there is no plot mapping.}
    the plot data. The return value must be a \code{data.frame.}, and
    will be used as the layer data.}
 
+\item{stat}{The default set is \code{"timeline"}}
+
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
@@ -47,14 +49,6 @@ the default plot specification, e.g. \code{\link{borders}}.}
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
-
-\item{xmin}{The minimum date in the range of timeline}
-
-\item{xmax}{The maximum date in the range of timeline}
-
-\item{x}{The date of earthquakes}
-
-\item{y}{The factor of levels (e.g: \code{COUNTRY})}
 }
 \description{
 \code{geom_timeline()} plots the significant earthquake,

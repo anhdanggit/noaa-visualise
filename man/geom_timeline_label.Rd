@@ -31,6 +31,8 @@ plot. You must supply \code{mapping} if there is no plot mapping.}
 \item{n_max}{A integer which indicates the number of the largest earthquakes to have
 the label}
 
+\item{stat}{The default set is \code{"timeline"}}
+
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
@@ -50,14 +52,6 @@ the default plot specification, e.g. \code{\link{borders}}.}
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
-
-\item{label}{The column name which the annotation would be obtained}
-
-\item{xmin}{The minimum date in the range of timeline}
-
-\item{xmax}{The maximum date in the range of timeline}
-
-\item{x}{The date of earthquakes}
 }
 \description{
 \code{geom_timeline_label()} is used together with \code{geom_timeline}

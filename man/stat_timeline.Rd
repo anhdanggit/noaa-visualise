@@ -28,6 +28,8 @@ plot. You must supply \code{mapping} if there is no plot mapping.}
    the plot data. The return value must be a \code{data.frame.}, and
    will be used as the layer data.}
 
+\item{geom}{The default set is \code{"timeline"}}
+
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
@@ -43,16 +45,12 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 
+\item{n_max}{A integer which indicates the number of the largest earthquakes}
+
 \item{...}{other arguments passed on to \code{\link{layer}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
-
-\item{xmin}{The minimum date in the range of timeline}
-
-\item{xmax}{The maximum date in the range of timeline}
-
-\item{x}{The date of earthquakes}
 }
 \description{
 \code{stat_timeline()} is used together with \code{geom_timeline}

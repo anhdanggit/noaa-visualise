@@ -3,9 +3,8 @@
 #' and \code{geom_timeline_label}. It takes the aes the \code{xmin} and \code{xmax}.
 #' to return the dataset within this range.
 #'
-#' @param xmin The minimum date in the range of timeline
-#' @param xmax The maximum date in the range of timeline
-#' @param x The date of earthquakes
+#' @param geom The default set is \code{"timeline"}
+#' @param n_max A integer which indicates the number of the largest earthquakes
 #' @inheritParams ggplot2::geom_point
 #'
 #' @note The default of \code{xmin} and \code{xmax} are set as the min and max of

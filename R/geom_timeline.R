@@ -6,10 +6,7 @@
 #' The xaesthetic is a date and an optional yaesthetic is a factor of levels.
 #'
 #' @inheritParams stat_timeline
-#' @param xmin The minimum date in the range of timeline
-#' @param xmax The maximum date in the range of timeline
-#' @param x The date of earthquakes
-#' @param y The factor of levels (e.g: \code{COUNTRY})
+#' @param stat The default set is \code{"timeline"}
 #'
 #' @note The aes \code{xmin} and \code{xmax} as date object should be clarified.
 #' @note The geom is set: \code{stat = "timeline"}

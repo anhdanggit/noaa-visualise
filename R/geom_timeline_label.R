@@ -8,10 +8,7 @@
 #' @inheritParams  stat_timeline
 #' @param n_max A integer which indicates the number of the largest earthquakes to have
 #' the label
-#' @param label The column name which the annotation would be obtained
-#' @param xmin The minimum date in the range of timeline
-#' @param xmax The maximum date in the range of timeline
-#' @param x The date of earthquakes
+#' @param stat The default set is \code{"timeline"}
 #'
 #' @import ggplot2
 #' @import grid
