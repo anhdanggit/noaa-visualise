@@ -52,7 +52,7 @@ eq_create_label <- function(data){
 
   out2 <- ifelse (!is.na(data$EQ_PRIMARY),
                   paste0("<b>Magnitude: </b>", data$EQ_PRIMARY, "<br/>"),
-                  paset0(""))
+                  paste0(""))
 
   out3 <- ifelse(!is.na(data$TOTAL_DEATHS),
                  paste0("<b>Total deaths: </b>", data$TOTAL_DEATHS),
