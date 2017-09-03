@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Package Info
 
+[![Travis-CI Build Status](https://travis-ci.org/maianhdang/noaa.visualise.svg?branch=master)](https://travis-ci.org/maianhdang/noaa.visualise)
 
 This is `noaa.visualise` package working with the NOAA Significant Earthquakes dataset 
 to support the process of visualising and gaining information. 
