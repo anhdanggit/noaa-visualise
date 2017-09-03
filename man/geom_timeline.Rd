@@ -57,9 +57,14 @@ The optional aes include \code{color}, \code{size}, \code{alpha}.
 The xaesthetic is a date and an optional yaesthetic is a factor of levels.
 }
 \note{
-The aes \code{xmin} and \code{xmax} as date object should be clarified.
+The aes \code{xmin} and \code{xmax} as the starting and ending
+points of the timeline, which should be clarified.
 
-The geom is set: \code{stat = "timeline"}
+The aes \code{x} is the \code{date} of the earthquakes
+
+The optiona aes \code{y} is the a factor indicating some stratification
+in which case multiple time lines will be plotted for each level of
+the factor (e.g. \code{COUNTRY})
 }
 \examples{
 \dontrun{ggplot(input_data, aes (x = date, y = COUNTRY,

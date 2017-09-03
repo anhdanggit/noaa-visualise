@@ -59,6 +59,19 @@ for adding the annotations to the timeline. The subset is taken
 the \code{n_max} number of earthquakes. Aesthetics are x, as the date of
 earthquakes and \code{label} would be taken from the column name.
 }
+\note{
+The aes \code{xmin} and \code{xmax} as the starting and ending
+points of the timeline, which should be clarified.
+
+The aes \code{x} is the \code{date} of the earthquakes
+
+The optiona aes \code{y} is the a factor indicating some stratification
+in which case multiple time lines will be plotted for each level of
+the factor (e.g. \code{COUNTRY})
+
+The aes \code{label} is the column in the data frame to obtain
+the text annotation
+}
 \examples{
 \dontrun{
 input_data <- eq_country_filter(data, c("INDIA", "IRAN"),

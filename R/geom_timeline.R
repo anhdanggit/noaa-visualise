@@ -8,8 +8,12 @@
 #' @inheritParams stat_timeline
 #' @param stat The default set is \code{"timeline"}
 #'
-#' @note The aes \code{xmin} and \code{xmax} as date object should be clarified.
-#' @note The geom is set: \code{stat = "timeline"}
+#' @note The aes \code{xmin} and \code{xmax} as the starting and ending
+#' points of the timeline, which should be clarified.
+#' @note The aes \code{x} is the \code{date} of the earthquakes
+#' @note The optiona aes \code{y} is the a factor indicating some stratification
+#' in which case multiple time lines will be plotted for each level of
+#' the factor (e.g. \code{COUNTRY})
 #'
 #' @import ggplot2
 #' @import grid
