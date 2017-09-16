@@ -1,21 +1,9 @@
----
-output: github_document
----
+# noaa.visualise package: To Visualize NOAA Significant Earthquakes dataset
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-```{r, echo = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "README-"
-)
-```
-
-# noaa.visualise
 [![Build Status](https://travis-ci.org/maianhdang/noaa.visualise.svg?branch=master)](https://travis-ci.org/maianhdang/noaa.visualise)
 
-This is `noaa.visualise` package working with the NOAA Significant Earthquakes dataset 
+## Description
+This is `noaa.visualise` package, working with the NOAA Significant Earthquakes dataset 
 to support the process of visualising and gaining information. 
 
 The packages includes the below groups:
