@@ -5,7 +5,7 @@ Version: 0.1.0
 Authors@R: person("Anh", "Dang", email = "maianhdang.ftu@gmail.com", role = c("aut", "cre"))
 Maintainer: Anh Dang <maianhdang.ftu@gmail.com>
 Description: The package is to process and visualize the NOAA dataset about earthquakes.
-License: GPL-2
+License: GPL-2 | file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: R(>= 3.2.2)
