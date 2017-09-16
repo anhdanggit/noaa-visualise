@@ -1,4 +1,4 @@
-# noaa.visualise package: To Visualize NOAA Significant Earthquakes dataset
+# Visualize NOAA Significant Earthquakes dataset
 
 [![Build Status](https://travis-ci.org/maianhdang/noaa.visualise.svg?branch=master)](https://travis-ci.org/maianhdang/noaa.visualise)
 
