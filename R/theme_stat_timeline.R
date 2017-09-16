@@ -50,9 +50,12 @@ StatTimeline <- ggplot2::ggproto("StatTimeline", ggplot2::Stat,
 #' @import ggplot2
 #'
 #' @examples \dontrun{
-#' ggplot(data, aes (x = date, y = COUNTRY) +
-#' geom_timeline() +
-#' geom_timeline_label(aes(label = LOCATION_NAME,n_max = 5) +
+#' ggplot(input_data, aes (x = date, y = COUNTRY,
+#' color = as.numeric(DEATHS), size = as.numeric(EQ_PRIMARY))) +
+#' geom_timeline(aes(xmin = as.Date("1900-01-01"), xmax =  as.Date("1925-01-01")) +
+#' geom_timeline_label(aes(label = LOCATION_NAME,
+#' xmin = as.Date("1900-01-01"), xmax = as.Date("1925-01-01")),
+#' n_max = 5) +
 #' theme_timeline()}
 #' @export
 theme_timeline <- function(){

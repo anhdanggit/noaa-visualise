@@ -74,17 +74,12 @@ the text annotation
 }
 \examples{
 \dontrun{
-input_data <- eq_country_filter(data, c("INDIA", "IRAN"),
-xmin = as.Date("0-01-01"),
-xmax = as.Date("2010-01-01"))
-
-ggplot(input_data, aes (x = date, y = COUNTRY, color = as.numeric(DEATHS),
-size = as.numeric(EQ_PRIMARY))) +
-geom_timeline(aes(xmin = as.Date("1800-01-01"), xmax = as.Date("2000-01-01"))) +
+ggplot(input_data, aes (x = date, y = COUNTRY,
+color = as.numeric(DEATHS), size = as.numeric(EQ_PRIMARY))) +
+geom_timeline(aes(xmin = as.Date("1900-01-01"), xmax =  as.Date("1925-01-01")) +
 geom_timeline_label(aes(label = LOCATION_NAME,
-                        xmin = as.Date("1800-01-01"), xmax = as.Date("2000-01-01")),
-                                           n_max = 5) +
-                                           labs(size = "Richter Scale Values", color = "Number of Deaths" ) +
-                                           theme_timeline()}
+xmin = as.Date("1900-01-01"), xmax = as.Date("1925-01-01")),
+n_max = 5) +
+theme_timeline()}
 
 }

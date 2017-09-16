@@ -20,7 +20,7 @@
 #' data <- eq_clean_data(raw_data)}
 #'
 #' @export
-
+mirror_date = date_numeric = LONGITUDE = LATITUDE = COUNTRY = NULL
 eq_clean_data <- function(raw_data){
 
   raw_data$MONTH[is.na(raw_data$MONTH)] <- "01" ## replace NA by 01
