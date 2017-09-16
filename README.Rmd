@@ -39,5 +39,5 @@ library(noaa.visualise)
 
 ## Further information about usage
 The vignettes is included in the package. Call the vignettes by:
-`vignette('noaa_instruct', package = 'noaa.visualise')`
+`vignette('introduction', package = 'noaa.visualise')`
 
