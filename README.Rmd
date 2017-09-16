@@ -1,17 +1,8 @@
----
-title: "Processing and visualising the NOAA Dataset of Significant Earthquakes"
-author: "maianhdang"
-date: "September 3, 2017"
-output: html_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## Package Info
+# Package to visualize NOAA Signigicant Earthquake Dataset
 
 [![Travis-CI Build Status](https://travis-ci.org/maianhdang/noaa.visualise.svg?branch=master)](https://travis-ci.org/maianhdang/noaa.visualise)
+
+## Package Info
 
 This is `noaa.visualise` package working with the NOAA Significant Earthquakes dataset 
 to support the process of visualising and gaining information. 
@@ -28,6 +19,7 @@ Mapping tools         | eq_map(), eq_create_label()
 
 
 The [NOAA Significant Earhquake Dataset](https://www.ngdc.noaa.gov/nndc/struts/form?t=101650&s=1&d=1) contains the information of 5,933 earthquakes over the period of 4,000 years.
+
 **Cite:** National Geophysical Data Center / World Data Service (NGDC/WDS): Significant Earthquake Database. National Geophysical Data Center, NOAA. doi:10.7289/V5TD9V7K
 
 ## Install the package
