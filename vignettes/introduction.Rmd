@@ -1,6 +1,6 @@
 ---
-title: "Vignette Title"
-author: "Vignette Author"
+title: "NOAA Visualization Package"
+author: "Anh Dang"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -9,50 +9,74 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+This is `noaa.visualise` package, working with the NOAA Significant Earthquakes dataset 
+to support the process of visualising and gaining information, including functions to: 
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+- Cleaning and filtering data
+- Plot the significant earthquakes in NOAA datasets by timeline
+- Plot the significant earthquakes in NOAA datasets by longitude and latitude
 
-## Vignette Info
+## Package Structure
 
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+The packages includes the below groups:
+  
+Group                 | Functions
+----------------------| ----------------------------
+Cleaning the raw data | eq_clean_data(), eq_location_clean(), eq_country_filter()
+Visualisation tools   | geom_timeline(), geom_timeline_lable(), stat_timeline(), theme_timeline()
+Mapping tools         | eq_map(), eq_create_label()
 
-## Styles
+## Cleaning the raw data
 
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+To make the data appropriate to visualize by the tools provided in the package. You should clean the data:
 
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+```{r clean_data}
+data("raw_data")
+data <- noaa.visualise::eq_clean_data(raw_data)
+data <- noaa.visualise::eq_location_clean(data) ## to create the text annotation
+input_data <- noaa.visualise::eq_country_filter(data, countries = c("MEXICO", "IRAN"),
+                                            xmin = as.Date("1000-01-01"),
+                                            xmax = as.Date("2010-01-01"))
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
+## geom_timeline and geom_timeline_label
 
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
+These geom are used altogether with the `gglot2`. You can choose the visualized timezone by `xmin` and `xmax` parameters. Mutiple information could be set by `size` and `color` (similar to other ggplot2 geoms).
+`geom_timeline_label` would add the `LOCATION_NAME` to the timeline, the number of label would be assigned to `n_max` largest earthquakes.
 
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+```{r visual_1}
+data("raw_data")
+data <- noaa.visualise::eq_clean_data(raw_data)
+data <- noaa.visualise::eq_location_clean(data) ## to create the text annotation
+input_data <- noaa.visualise::eq_country_filter(data, countries = c("MEXICO", "IRAN"),
+                                            xmin = as.Date("1000-01-01"),
+                                            xmax = as.Date("2010-01-01"))
 
-## More Examples
+ggplot2::ggplot(input_data, ggplot2::aes (x = date, y = COUNTRY, color = as.numeric(DEATHS), size = as.numeric(EQ_PRIMARY))) +
 
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
+## geom_timeline  
+noaa.visualise::geom_timeline(ggplot2::aes(xmin = as.Date("1900-01-01"), xmax =  as.Date("1925-01-01"))) +
+ggplot2::labs(size = "Richter Scale Values", color = "Number of Deaths" )+
 
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
+## geom_timeline_label  
+noaa.visualise::geom_timeline_label(ggplot2::aes(label = LOCATION_NAME, 
+                          xmin = as.Date("1900-01-01"), xmax = as.Date("1925-01-01")), 
+                          n_max = 5) + 
+  
+noaa.visualise::theme_timeline()
 ```
 
-Also a quote using `>`:
+## Visualize earthquakes in the map
+The earthquakes could be visualized on the geographical maps, with specific pop-up information, with the `eq_map`. The `eq_create_label` could be used together to create more meaningful popup texts.
 
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+```{r map_1}
+library(magrittr)
+data("raw_data")
+data <- noaa.visualise::eq_clean_data(raw_data)
+input_data <- dplyr::filter(data, COUNTRY == "MEXICO" &
+                                          lubridate::year(date) >= 2000)%>%
+  dplyr::mutate(popup_text = noaa.visualise::eq_create_label(.)) ## create popup_text
+
+noaa.visualise::eq_map(input_data, annot_col = "popup_text") ## annot_col set as popup_text
+          
+```

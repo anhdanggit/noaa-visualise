@@ -1,5 +1,6 @@
 # Visualize NOAA Significant Earthquakes dataset
 
+### Travis Badge
 [![Build Status](https://travis-ci.org/maianhdang/noaa.visualise.svg?branch=master)](https://travis-ci.org/maianhdang/noaa.visualise)
 
 ## Description
