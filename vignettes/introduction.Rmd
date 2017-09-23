@@ -28,55 +28,13 @@ Mapping tools         | eq_map(), eq_create_label()
 
 ## Cleaning the raw data
 
-To make the data appropriate to visualize by the tools provided in the package. You should clean the data:
-
-```{r clean_data}
-data("raw_data")
-data <- noaa.visualise::eq_clean_data(raw_data)
-data <- noaa.visualise::eq_location_clean(data) ## to create the text annotation
-input_data <- noaa.visualise::eq_country_filter(data, countries = c("MEXICO", "IRAN"),
-                                            xmin = as.Date("1000-01-01"),
-                                            xmax = as.Date("2010-01-01"))
-```
+To make the data appropriate to visualize by the tools provided in the package. You should clean the data.
 
 ## geom_timeline and geom_timeline_label
 
 These geom are used altogether with the `gglot2`. You can choose the visualized timezone by `xmin` and `xmax` parameters. Mutiple information could be set by `size` and `color` (similar to other ggplot2 geoms).
 `geom_timeline_label` would add the `LOCATION_NAME` to the timeline, the number of label would be assigned to `n_max` largest earthquakes.
 
-```{r visual_1}
-data("raw_data")
-data <- noaa.visualise::eq_clean_data(raw_data)
-data <- noaa.visualise::eq_location_clean(data) ## to create the text annotation
-input_data <- noaa.visualise::eq_country_filter(data, countries = c("MEXICO", "IRAN"),
-                                            xmin = as.Date("1000-01-01"),
-                                            xmax = as.Date("2010-01-01"))
-
-ggplot2::ggplot(input_data, ggplot2::aes (x = date, y = COUNTRY, color = as.numeric(DEATHS), size = as.numeric(EQ_PRIMARY))) +
-
-## geom_timeline  
-noaa.visualise::geom_timeline(ggplot2::aes(xmin = as.Date("1900-01-01"), xmax =  as.Date("1925-01-01"))) +
-ggplot2::labs(size = "Richter Scale Values", color = "Number of Deaths" )+
-
-## geom_timeline_label  
-noaa.visualise::geom_timeline_label(ggplot2::aes(label = LOCATION_NAME, 
-                          xmin = as.Date("1900-01-01"), xmax = as.Date("1925-01-01")), 
-                          n_max = 5) + 
-  
-noaa.visualise::theme_timeline()
-```
-
 ## Visualize earthquakes in the map
 The earthquakes could be visualized on the geographical maps, with specific pop-up information, with the `eq_map`. The `eq_create_label` could be used together to create more meaningful popup texts.
 
-```{r map_1}
-library(magrittr)
-data("raw_data")
-data <- noaa.visualise::eq_clean_data(raw_data)
-input_data <- dplyr::filter(data, COUNTRY == "MEXICO" &
-                                          lubridate::year(date) >= 2000)%>%
-  dplyr::mutate(popup_text = noaa.visualise::eq_create_label(.)) ## create popup_text
-
-noaa.visualise::eq_map(input_data, annot_col = "popup_text") ## annot_col set as popup_text
-          
-```
