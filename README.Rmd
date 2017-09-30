@@ -46,10 +46,12 @@ input_data <- noaa.visualise::eq_country_filter(data, countries = c("MEXICO", "I
                                             xmin = as.Date("1000-01-01"),
                                             xmax = as.Date("2010-01-01"))
 
-ggplot2::ggplot(input_data, ggplot2::aes (x = date, y = COUNTRY, color = as.numeric(DEATHS), size = as.numeric(EQ_PRIMARY))) +
+ggplot2::ggplot(input_data, ggplot2::aes (x = date, y = COUNTRY, color = as.numeric(DEATHS), 
+size = as.numeric(EQ_PRIMARY))) +
 
 ## geom_timeline  
-noaa.visualise::geom_timeline(ggplot2::aes(xmin = as.Date("1900-01-01"), xmax =  as.Date("1925-01-01"))) +
+noaa.visualise::geom_timeline(ggplot2::aes(xmin = as.Date("1900-01-01"), 
+xmax =  as.Date("1925-01-01"))) +
 ggplot2::labs(size = "Richter Scale Values", color = "Number of Deaths" )+
 
 ## geom_timeline_label  
