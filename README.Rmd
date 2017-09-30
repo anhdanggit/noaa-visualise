@@ -61,6 +61,7 @@ noaa.visualise::geom_timeline_label(ggplot2::aes(label = LOCATION_NAME,
   
 noaa.visualise::theme_timeline()
 ```
+![alt tag](https://github.com/maianhdang/noaa.visualise/blob/master/timeline-example.png)
 
 ### Visualize earthquakes in the map
 ```{r map_1}
@@ -74,3 +75,4 @@ input_data <- dplyr::filter(data, COUNTRY == "MEXICO" &
 noaa.visualise::eq_map(input_data, annot_col = "popup_text") ## annot_col set as popup_text
           
 ```
+![alt tag](https://github.com/maianhdang/noaa.visualise/blob/master/leaflet-example.png)
